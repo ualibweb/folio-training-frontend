@@ -3,13 +3,24 @@ import React, { FunctionComponent } from 'react';
 import { IntlContext, IntlShape } from 'react-intl';
 import withIntlConfiguration from './withIntlConfiguration';
 
-export default function (locale = 'en-US', timeZone = 'UTC'): IntlShape {
+function TestComponent({
+  intlCapturer,
+}: {
+  intlCapturer: (intl: IntlShape) => void;
+}) {
+  return <IntlContext.Consumer>{intlCapturer}</IntlContext.Consumer>;
+}
+
+export default function getIntl(locale = 'en-US', timeZone = 'UTC'): IntlShape {
   const intlCapturer = jest.fn();
 
-  const TestComponent: FunctionComponent<Record<string, never>> = () => (
-    <IntlContext.Consumer>{intlCapturer}</IntlContext.Consumer>
+  render(
+    withIntlConfiguration(
+      <TestComponent intlCapturer={intlCapturer} />,
+      locale,
+      timeZone
+    )
   );
-  render(withIntlConfiguration(<TestComponent />, locale, timeZone));
 
   expect(intlCapturer).toHaveBeenCalled();
   const intl = intlCapturer.mock.calls[0][0] as IntlShape;
