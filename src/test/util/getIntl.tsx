@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { IntlContext, IntlShape } from 'react-intl';
 import withIntlConfiguration from './withIntlConfiguration';
 
