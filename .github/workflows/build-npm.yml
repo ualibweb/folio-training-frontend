@@ -11,7 +11,7 @@
 #   - COMPILE_TRANSLATION_FILES (boolean 'true' or 'false')
 
 name: buildNPM Snapshot
-on: [push, pull_request]
+on: [push]
 
 jobs:
   github-actions-ci:
