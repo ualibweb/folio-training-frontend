@@ -1,0 +1,88 @@
+{
+  "name": "@folio/training",
+  "version": "1.1.0",
+  "description": "Training/practice module for old and new FOLIO developers alike!",
+  "main": "src/index.tsx",
+  "repository": "ualibweb/folio-training-frontend",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=12.20.1"
+  },
+  "scripts": {
+    "start": "stripes serve --hasAllPerms",
+    "lint": "eslint .",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-calendar ./translations/ui-calendar/compiled"
+  },
+  "devDependencies": {
+    "@folio/eslint-config-stripes": "^6.3.0",
+    "@folio/stripes": "https://github.com/ualibweb/stripes#stripes-859",
+    "@folio/stripes-cli": "^2.6.0",
+    "@folio/stripes-components": "^11.0.0",
+    "@folio/stripes-core": "^9.0.0",
+    "@folio/stripes-final-form": "^7.0.0",
+    "@formatjs/cli": "^4.2.21",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^28.1.6",
+    "@types/react-router-dom": "^5.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^7.32.0",
+    "eslint-import-resolver-webpack": "^0.13.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
+    "jest-junit": "^14.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-intl": "^5.7.0",
+    "react-final-form": "^6.5.9",
+    "react-final-form-arrays": "^3.1.4",
+    "react-router-dom": "^5.2.0",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "classnames": "^2.3.1",
+    "final-form": "^4.20.9",
+    "final-form-arrays": "^3.1.0",
+    "history": "^4.9.0",
+    "ky": "^0.31.1",
+    "utility-types": "^3.10.0"
+  },
+  "resolutions": {
+    "@types/react": "^17.0.2"
+  },
+  "peerDependencies": {
+    "@folio/stripes": "^8.0.0",
+    "@types/react": "^17.0.2",
+    "final-form": "^4.20.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-final-form": "^6.5.9",
+    "react-intl": "^5.7.0",
+    "react-query": "^3.39.2",
+    "react-router-dom": "^5.2.0"
+  },
+  "stripes": {
+    "actsAs": [
+      "app"
+    ],
+    "displayName": "ui-training.meta.title",
+    "route": "/training",
+    "hasSettings": false,
+    "okapiInterfaces": {},
+    "permissionSets": [
+      {
+        "permissionName": "module.training.enabled",
+        "displayName": "UI: Training module is enabled",
+        "visible": true
+      }
+    ]
+  }
+}

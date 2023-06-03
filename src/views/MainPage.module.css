@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.eyesWrapper {
+  flex: 1;
+
+  font-size: 80px;
+  animation-name: bounce-side-to-side;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+
+.eyes {
+  display: inline-block;
+  animation-name: spin;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+
+@keyframes bounce-side-to-side {
+  from {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(calc(100% - 2ch));
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(540deg);
+  }
+  to {
+    transform: rotateZ(0deg);
+  }
+}
