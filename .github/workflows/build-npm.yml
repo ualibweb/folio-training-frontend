@@ -11,7 +11,7 @@
 #   - COMPILE_TRANSLATION_FILES (boolean 'true' or 'false')
 
 name: buildNPM Snapshot
-on: [push, pull_request]
+on: [push]
 
 jobs:
   github-actions-ci:
@@ -65,7 +65,6 @@ jobs:
 
       - name: Run yarn lint
         run: yarn lint
-        continue-on-error: true
 
       - name: Run yarn test
         run: yarn node --expose-gc $(yarn bin jest) --runInBand --logHeapUsage $YARN_TEST_OPTIONS
