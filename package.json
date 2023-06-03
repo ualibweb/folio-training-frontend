@@ -14,7 +14,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
-    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-calendar ./translations/ui-calendar/compiled"
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-translations ./translations/ui-translations/compiled"
   },
   "devDependencies": {
     "@folio/eslint-config-stripes": "^6.3.0",
