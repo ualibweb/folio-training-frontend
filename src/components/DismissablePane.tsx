@@ -8,13 +8,10 @@ interface DismissablePaneProps {
 }
 
 const DismissablePane = (props: DismissablePaneProps) => {
-
   function dismissPane() {
     try {
-      if (props.setDisplayed) 
-        props.setDisplayed(false);
-    }
-    catch (e) {
+      if (props.setDisplayed) { props.setDisplayed(false); }
+    } catch (e) {
       console.log('Error dismissing pane: ' + e);
     }
   }
