@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Headline, MultiColumnList, Pane, PaneHeader, Paneset } from '@folio/stripes/components';
+import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/components';
 
 import DismissablePane from './DismissablePane';
 
 
 const catalogResults = [
-  {title:'Microbiology Today', author:'James Edward'},
-  {title:'Orange Book', author:'Philip Ramos'},
-]
+  { title:'Microbiology Today', author:'James Edward' },
+  { title:'Orange Book', author:'Philip Ramos' },
+];
 
 // Define a state displayed or not
 
@@ -29,10 +29,10 @@ export default function MainPage() {
           <MultiColumnList contentData={catalogResults} />
 
           <Button
-          onClick={() => { toggleDisplayed() }}
+            onClick={() => { toggleDisplayed(); }}
           >
             Show Dismissable Pane
-            </Button>
+          </Button>
 
         </Pane>
 
