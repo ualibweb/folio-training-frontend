@@ -21,5 +21,11 @@ describe('Debug', () => {
     expect(screen.getByText(expected)).toBeVisible();
   });
 
-  
+  // where defaultOpen is true
+  it('renders open by default', () => {
+    render(<Debug label="test" value="foo" defaultOpen={true}/>);
+
+    expect(screen.getByText('"foo"')).toBeVisible();
+  });
+
 });

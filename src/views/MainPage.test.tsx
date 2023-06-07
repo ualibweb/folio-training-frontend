@@ -7,6 +7,6 @@ describe('Main page', () => {
   it('shows the text', async () => {
     render(<MainPage />);
 
-    expect(await screen.findByText('Microbiology Today')).toBeVisible();
+    expect(screen.getByText('Show Dismissable Pane')).toBeVisible();
   });
 });
