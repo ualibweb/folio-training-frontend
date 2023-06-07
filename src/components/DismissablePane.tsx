@@ -7,6 +7,7 @@ interface DismissablePaneProps {
 }
 
 const DismissablePane = (props: DismissablePaneProps) => {
+  
   function dismissPane() {
     props.setDisplayed(false);
   }

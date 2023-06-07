@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/components';
 
 import { IntlProvider } from 'react-intl';
-import DismissablePane from './DismissablePane';
+import DismissablePane from '../components/DismissablePane';
 
 
 const catalogResults = [
