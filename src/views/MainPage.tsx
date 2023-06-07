@@ -10,9 +10,6 @@ const catalogResults = [
   { title:'Orange Book', author:'Philip Ramos' },
 ];
 
-// Define a state displayed or not
-
-
 
 export default function MainPage() {
   const [displayed, setDisplayed] = useState(false);
