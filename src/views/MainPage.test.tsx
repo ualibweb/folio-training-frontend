@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import MainPage from './MainPage';
 import withIntlConfiguration from '../test/util/withIntlConfiguration';
-import userEvent from '@testing-library/user-event';
 
 
 describe('Main page', () => {
