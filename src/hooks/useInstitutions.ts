@@ -1,16 +1,16 @@
-import { useOkapiKy } from "@folio/stripes/core";
-import { useQuery } from "react-query";
+import { useOkapiKy } from '@folio/stripes/core';
+import { useQuery } from 'react-query';
 
 interface InstitutionsResponse {
     locinsts: Institution[];
     totalRecords: number;
   }
-  
+
   interface Institution {
     id: string;
-    name: any;
-    code: any;
-  
+    name: string;
+    code: string;
+
     metadata: {
       createdDate: string;
       updatedDate?: string;
@@ -22,11 +22,13 @@ interface InstitutionsResponse {
     // All queries of existing institutions will include IDs, so it does not need to be marked as optional (with ?:).
   }
 
-export const useInstitutions = () => {
+const useInstitutions = () => {
   const ky = useOkapiKy();
 
   return useQuery<Institution[]>(
-    ["ui-training", "institutions"],
-    async () => ((await ky("location-units/institutions").json<InstitutionsResponse>())).locinsts,
+    ['ui-training', 'institutions'],
+    async () => ((await ky('location-units/institutions').json<InstitutionsResponse>())).locinsts,
   );
 };
+
+export default useInstitutions;

@@ -9,6 +9,7 @@
     "node": ">=12.20.1"
   },
   "scripts": {
+    "s": "yarn stripes serve --okapi https://folio-snapshot-okapi.dev.folio.org --tenant diku --hasAllPerms",
     "start": "stripes serve --hasAllPerms",
     "lint": "eslint .",
     "test": "jest",

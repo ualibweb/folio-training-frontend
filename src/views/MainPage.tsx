@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
 import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/components';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import DismissablePane from '../components/DismissablePane';
 import Debug from '../components/Debug';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useInstitutions } from '../hooks/useInstitutions';
+import useInstitutions from '../hooks/useInstitutions';
 
 export default function MainPage() {
   const [displayed, setDisplayed] = useState(false);
   const institutionsQuery = useInstitutions();
 
-  function toggleDisplayed() {
-    setDisplayed(!displayed);
-  }
-
-  const institutions = institutionsQuery.data?.map(institution => ({
-    code: institution.code,
-    name: institution.name,
-  })) || [];
-
-  console.log('institutions', institutions);
+  const toggleDisplayed = () => setDisplayed(!displayed);
 
 
-  const dummyData = ['a', 'b', 'c'];
+  // Lets define a use stae !isLoading for the query
+  // and use that to conditionally render the list
+  // or a spinner
+
+  const isLoading = institutionsQuery.isLoading;
+
+
+  const data = institutionsQuery.data;
 
   return (
     <div>
@@ -29,9 +27,11 @@ export default function MainPage() {
       <Debug label="useInstitutions" value={useInstitutions()} />
       <Paneset>
         <Pane defaultWidth="fill">
-          <MultiColumnList
-            contentData={dummyData}
+          {!isLoading && <MultiColumnList
+            contentData={data ?? []}
+            visibleColumns={['name', 'code']}
           />
+          }
 
           <Button onClick={toggleDisplayed}>
             Show Dismissable Pane

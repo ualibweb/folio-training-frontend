@@ -30,7 +30,7 @@ describe('Debug', () => {
       <Form
         onSubmit={jest.fn()}
         render={({ form }: { form: FormApi }) => (
-          <DebugForm defaultOpen />
+          <DebugForm defaultOpen={form.getState().values.debugOpen} />
         )}
       />
     );
