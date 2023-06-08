@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import MainPage from './MainPage';
 import withIntlConfiguration from '../test/util/withIntlConfiguration';
+import userEvent from '@testing-library/user-event';
 
 
 describe('Main page', () => {
@@ -17,12 +18,9 @@ describe('Main page', () => {
     // See if we can see the dismissable pane before clicking the button
     expect(screen.queryByText('This is a dismissable pane')).toBeNull();
 
-    const b = await screen.findAllByRole('button');
+    const showButton = screen.getByRole('button', { name: 'Show Dismissable Pane' });
 
-    b.forEach(async (button) => {
-      expect(button).toBeVisible();
-      await button.click();
-    });
+    await userEvent.click(showButton);
 
     // See if we can see the dismissable pane after clicking the button
     expect(screen.queryByText('This is a dismissable pane')).toBeVisible();
@@ -31,20 +29,17 @@ describe('Main page', () => {
   it('click the toggle window button, then close it', async () => {
     render(withIntlConfiguration(<MainPage />));
 
-    const b = await screen.findAllByRole('button');
+    // See if we can see the dismissable pane before clicking the button
+    const showButton = screen.getByRole('button', { name: 'Show Dismissable Pane' });
 
-    b.forEach(async (button) => {
-      expect(button).toBeVisible();
-      await button.click();
-    });
+    await userEvent.click(showButton);
 
     // See if we can see the dismissable pane after clicking the button
     expect(screen.queryByText('This is a dismissable pane')).toBeVisible();
 
-    b.forEach(async (button) => {
-      expect(button).toBeVisible();
-      await button.click();
-    });
+    const closeButton = screen.getByRole('button', { name: 'Close Pane' });
+
+    await userEvent.click(closeButton);
 
     // See if we can see the dismissable pane after clicking the button
     expect(screen.queryByText('This is a dismissable pane')).toBeNull();
