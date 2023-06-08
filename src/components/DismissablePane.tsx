@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import { Headline, Pane, PaneHeader } from '@folio/stripes/components';
+import { Button } from '@material-ui/core';
 
 interface DismissablePaneProps {
     displayed: boolean;
@@ -7,9 +8,7 @@ interface DismissablePaneProps {
 }
 
 const DismissablePane = (props: DismissablePaneProps) => {
-  function dismissPane() {
-    props.setDisplayed(false);
-  }
+  const dismissPane = useCallback(() => props.setDisplayed(false), [props]);
 
   return (
     <div>
@@ -21,8 +20,15 @@ const DismissablePane = (props: DismissablePaneProps) => {
           <PaneHeader
             paneTitle="Dismissable Pane"
             dismissible
-            onClose={() => { dismissPane(); }}
+            onClose={dismissPane}
           />
+
+          <Button
+            className="dismissable-pane-close-button"
+            onClick={dismissPane}
+          >
+            Close Pane
+          </Button>
 
           <Headline size="large">This is a dismissable pane</Headline>
 
