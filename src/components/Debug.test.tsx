@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Form } from 'react-final-form';
-import { FormApi, SubmissionErrors } from 'final-form';
+import { FormApi } from 'final-form';
 import Debug, { DebugForm } from './Debug';
 
 describe('Debug', () => {
@@ -23,8 +23,18 @@ describe('Debug', () => {
 
   // where defaultOpen is true
   it('renders open by default', () => {
-    render(<Debug label="test" value="foo" defaultOpen />);
+    render(<Debug label="test" value={[1, 2, 3]} defaultOpen />);
 
-    expect(screen.getByText('"foo"')).toBeVisible();
+    // Run DebugForm to get the form values
+    render(
+      <Form
+        onSubmit={jest.fn()}
+        render={({ form }: { form: FormApi }) => (
+          <DebugForm defaultOpen />
+        )}
+      />
+    );
+
+    expect(screen.getByText('[ 1, 2, 3 ]')).toBeVisible();
   });
 });

@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 
 interface DismissablePaneProps {
     displayed: boolean;
-    setDisplayed: Dispatch<SetStateAction<boolean>>;
+    setDisplayed?: Dispatch<SetStateAction<boolean>>;
 }
 
 const DismissablePane = (props: DismissablePaneProps) => {
@@ -30,6 +30,7 @@ const DismissablePane = (props: DismissablePaneProps) => {
           />
 
           <Button
+            className="dismissable-pane-close-button"
             onClick={() => { dismissPane(); }}
           >
             Close Pane

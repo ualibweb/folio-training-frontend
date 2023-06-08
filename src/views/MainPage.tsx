@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/components';
-
-import { IntlProvider } from 'react-intl';
 import DismissablePane from '../components/DismissablePane';
 
 
@@ -19,28 +17,26 @@ export default function MainPage() {
   }
 
   return (
-    <IntlProvider locale="en">
-      <div>
-        <Paneset>
+    <div>
+      <Paneset>
 
-          <Pane defaultWidth="fill">
-            <MultiColumnList contentData={catalogResults} />
+        <Pane defaultWidth="fill">
+          <MultiColumnList contentData={catalogResults} />
 
-            <Button
-              onClick={() => { toggleDisplayed(); }}
-            >
-              Show Dismissable Pane
-            </Button>
+          <Button
+            onClick={() => { toggleDisplayed(); }}
+          >
+            Show Dismissable Pane
+          </Button>
 
-          </Pane>
+        </Pane>
 
-          <DismissablePane
-            displayed={displayed}
-            setDisplayed={setDisplayed}
-          />
+        <DismissablePane
+          displayed={displayed}
+          setDisplayed={setDisplayed}
+        />
 
-        </Paneset>
-      </div>
-    </IntlProvider>
+      </Paneset>
+    </div>
   );
 }
