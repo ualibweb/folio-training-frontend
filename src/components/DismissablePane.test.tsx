@@ -6,30 +6,36 @@ import withIntlConfiguration from '../test/util/withIntlConfiguration';
 
 describe('Dismissable Pane', () => {
   it('renders without crashing', () => {
-    render(withIntlConfiguration(<DismissablePane displayed />));
+    const setDisplayed = jest.fn();
+    render(withIntlConfiguration(<DismissablePane displayed setDisplayed={setDisplayed} />));
 
     expect(screen.getByText('Close Pane')).toBeVisible();
   });
 
   it('doesnt render when displayed is false', () => {
-    render(withIntlConfiguration(<DismissablePane displayed={false} />));
+    const setDisplayed = jest.fn();
+    render(withIntlConfiguration(<DismissablePane displayed={false} setDisplayed={setDisplayed} />));
 
     expect(screen.queryByText('Close Pane')).toBeNull();
   });
 
 
   it('render, then close', async () => {
-    render(withIntlConfiguration(<DismissablePane displayed />));
+    const setDisplayed = jest.fn();
+    render(withIntlConfiguration(<DismissablePane displayed setDisplayed={setDisplayed} />));
 
     expect(screen.getByText('Close Pane')).toBeVisible();
 
-    // get button with classname MuiButtonBase-root MuiButton-root MuiButton-text dismissable-pane-close-button
     const button = screen.getByRole('button', { name: 'Close Pane' });
 
     await userEvent.click(button);
+    expect(setDisplayed).toHaveBeenCalledWith(false);
 
-    // Here I want to check if the pane is closed, but mt method of clicking the close button is not working,
-    // so I have to comment it out right now. Dont know why it is not working.
-    // expect(screen.queryByText('Close Pane')).toBeNull();
+    setDisplayed.mockReset();
+
+    const otherButton = screen.getByLabelText('Close Dismissable Pane');
+
+    await userEvent.click(otherButton);
+    expect(setDisplayed).toHaveBeenCalledWith(false);
   });
 });
