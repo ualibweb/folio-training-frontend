@@ -3,7 +3,7 @@ import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/component
 import { ReactQueryDevtools } from 'react-query/devtools';
 import DismissablePane from '../components/DismissablePane';
 import Debug from '../components/Debug';
-import { useInstitutions } from '../hooks/useInstitutions';
+import useInstitutions from '../hooks/useInstitutions';
 
 export default function MainPage() {
   const [displayed, setDisplayed] = useState(false);
