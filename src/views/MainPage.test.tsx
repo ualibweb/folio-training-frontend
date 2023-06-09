@@ -1,49 +1,37 @@
-import { render, screen } from '@testing-library/react';
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import MainPage from './MainPage';
-import withIntlConfiguration from '../test/util/withIntlConfiguration';
+import React, { ReactNode } from 'react';
+import { renderHook } from '@testing-library/react-hooks';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { useInstitutionsMock, kyMock } from '../hooks/useInstitutions';
 
+describe('Institution query', () => {
+  it('Returns the requested data', async () => {
+    // must be provided to use react-query features. this is normally done by the Stripes interface
+    // as a whole, but since we're only rendering the hook, we need to do it ourselves
+    const queryClient = new QueryClient();
+    // provide the queryClient
+    const wrapper = ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
 
-describe('Main page', () => {
-  it('shows the text', async () => {
-    render(withIntlConfiguration(<MainPage />));
+    // a special `waitFor` for hooks is returned; we want to be sure to use it here
+    const { result, waitFor } = renderHook(() => useInstitutionsMock(), { wrapper });
 
-    expect(screen.getByText('Show Dismissable Pane')).toBeVisible();
-  });
+    // renderHook's result gives us a lot of information; we care about the `current` hook
+    // this waits until the API request has been completed
+    await waitFor(() => result.current.isSuccess);
 
-  it('click the toggle window button', async () => {
-    render(withIntlConfiguration(<MainPage />));
-
-    // See if we can see the dismissable pane before clicking the button
-    expect(screen.queryByText('This is a dismissable pane')).toBeNull();
-
-    const showButton = screen.getByRole('button', { name: 'Show Dismissable Pane' });
-
-    await userEvent.click(showButton);
-
-    // See if we can see the dismissable pane after clicking the button
-    expect(screen.queryByText('This is a dismissable pane')).toBeVisible();
-  });
-
-  it('click the toggle window button, then close it', async () => {
-    render(withIntlConfiguration(<MainPage />));
-
-    // See if we can see the dismissable pane before clicking the button
-    const showButton = screen.getByRole('button', { name: 'Show Dismissable Pane' });
-
-    await userEvent.click(showButton);
-
-    // See if we can see the dismissable pane after clicking the button
-    expect(screen.queryByText('This is a dismissable pane')).toBeVisible();
-
-    const closeButton = screen.getByRole('button', { name: 'Close Pane' });
-
-    await userEvent.click(closeButton);
-
-    // See if we can see the dismissable pane after clicking the button
-    expect(screen.queryByText('This is a dismissable pane')).toBeNull();
+    // ensure that the proper endpoint was called
+    expect(kyMock).toHaveBeenCalledWith('location-units/institutions');
+    // and that it gave us what we wanted
+    expect(result.current.data).toStrictEqual([
+      {
+        id: 'inst1-id',
+        name: 'institution 1',
+      },
+      {
+        id: 'inst2-id',
+        name: 'institution 2',
+      },
+    ]);
   });
 });
-
-

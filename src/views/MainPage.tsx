@@ -3,7 +3,7 @@ import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/component
 import { ReactQueryDevtools } from 'react-query/devtools';
 import DismissablePane from '../components/DismissablePane';
 import Debug from '../components/Debug';
-import useInstitutions from '../hooks/useInstitutions';
+import { useInstitutions } from '../hooks/useInstitutions';
 
 export default function MainPage() {
   const [displayed, setDisplayed] = useState(false);
@@ -11,14 +11,7 @@ export default function MainPage() {
 
   const toggleDisplayed = () => setDisplayed(!displayed);
 
-
-  // Lets define a use stae !isLoading for the query
-  // and use that to conditionally render the list
-  // or a spinner
-
   const isLoading = institutionsQuery.isLoading;
-
-
   const data = institutionsQuery.data;
 
   return (
