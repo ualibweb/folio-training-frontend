@@ -73,4 +73,24 @@ describe('MainPage', () => {
     // See if we can see the dismissable pane after clicking the button
     expect(screen.queryByText('This is a dismissable pane')).toBeNull();
   });
+  /**
+ *         <Pane defaultWidth="fill">
+          {!isLoading && <MultiColumnList
+            contentData={data ?? []}
+            visibleColumns={['name', 'code']}
+          />
+ */
+  it('renders the institutions list', () => {
+    // mock the useInstitutions hook
+    (useInstitutions as any).mockReturnValue({
+      isLoading: false,
+    });
+
+    // render the component
+    render(withIntlConfiguration(<MainPage />));
+
+    // ensure that the list is rendered and except the data in the lsit to be empty and therefore nothing in the pane is rendered
+    expect(screen.queryByText('institution 1')).toBeNull();
+    expect(screen.queryByText('institution 2')).toBeNull();
+  });
 });
