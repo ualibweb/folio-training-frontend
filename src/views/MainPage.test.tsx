@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import MainPage from './MainPage';
 import withIntlConfiguration from '../test/util/withIntlConfiguration';
 
 import useInstitutions from '../hooks/useInstitutions';
-import userEvent from '@testing-library/user-event';
 
 // at top of file, before the tests
 jest.mock('../hooks/useInstitutions');
