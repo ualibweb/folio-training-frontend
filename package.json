@@ -55,7 +55,6 @@
     "final-form-arrays": "^3.1.0",
     "history": "^4.9.0",
     "ky": "^0.31.1",
-    "react-router": "^6.12.1",
     "utility-types": "^3.10.0"
   },
   "resolutions": {
