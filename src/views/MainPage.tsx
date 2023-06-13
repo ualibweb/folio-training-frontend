@@ -1,42 +1,38 @@
 import React, { useState } from 'react';
 import { Button, MultiColumnList, Pane, Paneset } from '@folio/stripes/components';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import DismissablePane from '../components/DismissablePane';
-
-
-const catalogResults = [
-  { title:'Microbiology Today', author:'James Edward' },
-  { title:'Orange Book', author:'Philip Ramos' },
-];
-
+import Debug from '../components/Debug';
+import useInstitutions from '../hooks/useInstitutions';
 
 export default function MainPage() {
   const [displayed, setDisplayed] = useState(false);
+  const institutionsQuery = useInstitutions();
 
-  function toggleDisplayed() {
-    setDisplayed(!displayed);
-  }
+  const toggleDisplayed = () => setDisplayed(!displayed);
+
+  const isLoading = institutionsQuery.isLoading;
+  const data = institutionsQuery.data;
 
   return (
     <div>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <Debug label="useInstitutions" value={useInstitutions()} />
       <Paneset>
-
         <Pane defaultWidth="fill">
-          <MultiColumnList contentData={catalogResults} />
+          {!isLoading && <MultiColumnList
+            contentData={data ?? []}
+            visibleColumns={['name', 'code']}
+          />
+          }
 
-          <Button
-            onClick={() => { toggleDisplayed(); }}
-          >
+          <Button onClick={toggleDisplayed}>
             Show Dismissable Pane
           </Button>
-
         </Pane>
-
-        <DismissablePane
-          displayed={displayed}
-          setDisplayed={setDisplayed}
-        />
-
       </Paneset>
+
+      <DismissablePane displayed={displayed} setDisplayed={setDisplayed} />
     </div>
   );
 }
