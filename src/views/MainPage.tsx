@@ -1,17 +1,13 @@
 import React from 'react';
-import css from './MainPage.module.css';
+import SidePanel from './SIdePanel';
 import { Pane, Paneset, PaneHeader, Headline, MultiColumnList, Button } from '@folio/stripes/components';
 import { useState } from 'react';
 
 export default function MainPage() {
   const [showPanel, setShowPanel] = useState<boolean>(false);
 
-  const openPanel = () => {
-    setShowPanel(true);
-  }
-
-  const closePanel = () => {
-    setShowPanel(false);
+  const togglePanel = () => {
+    setShowPanel(!showPanel);
   }
 
   const bookData = [
@@ -22,29 +18,16 @@ export default function MainPage() {
   return (
     <div>
       <Paneset>
-        <Pane defaultWidth="fill">
+        <Pane defaultWidth='fill'>
           <Headline size='large' margin='medium' tag='h3'>
             Headline
-            <Button onClick={openPanel}>
+            <Button onClick={togglePanel}>
               Open side panel
             </Button>
           </Headline>
           <MultiColumnList contentData={bookData} />
         </Pane>
-        {showPanel && 
-          <Pane 
-          defaultWidth='50%' 
-          renderHeader={renderProps => (
-            <PaneHeader
-            {...renderProps}
-            dismissible
-            onClose={closePanel}
-            paneTitle="Dismiss this"
-            />
-          )}>
-            Side panel
-          </Pane>
-        }
+        <SidePanel togglePanel={togglePanel} showPanel={showPanel}/>
       </Paneset>
     </div>
   );
