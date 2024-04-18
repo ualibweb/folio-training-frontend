@@ -1,5 +1,5 @@
 import React from 'react';
-import SidePanel from './SIdePanel';
+import SidePanel from './SidePanel';
 import { Pane, Paneset, PaneHeader, Headline, MultiColumnList, Button } from '@folio/stripes/components';
 import { useState } from 'react';
 
