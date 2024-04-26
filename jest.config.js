@@ -1,25 +1,17 @@
 const { join } = require('path');
+const config = require('@folio/jest-config-stripes');
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  testEnvironment: 'jsdom',
+  ...config,
 
-  preset: 'ts-jest',
-  transform: {
-    '^.+\\.(t|j)sx?$': 'ts-jest',
-  },
-  transformIgnorePatterns: ['node_modules/(?!@folio|ky)'],
   coverageProvider: 'v8',
 
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
 
   testMatch: ['**/src/**/?(*.)test.{js,jsx,ts,tsx}'],
-  testPathIgnorePatterns: ['/node_modules/', 'src/typings/'],
-
-  reporters: ['default', 'jest-junit'],
 
   coverageReporters: ['lcov', 'text'],
-  coverageDirectory: './artifacts/coverage-jest/',
   collectCoverageFrom: [
     '<rootDir>/index.ts',
     '<rootDir>/src/**/*.{ts,tsx}',
@@ -29,8 +21,14 @@ module.exports = {
     '!**/node_modules/**',
   ],
 
-  setupFiles: [join(__dirname, './src/test/setupTests.ts')],
+  setupFiles: [...config.setupFiles, join(__dirname, './src/test/setupTests.ts')],
   setupFilesAfterEnv: [join(__dirname, './src/test/jest.setup.ts')],
+
+  preset: 'ts-jest',
+  transform: {
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    ...config.transform,
+  },
 
   moduleNameMapper: {
     '^.+\\.(css|svg)$': 'identity-obj-proxy',
@@ -41,10 +39,4 @@ module.exports = {
 
   slowTestThreshold: 10,
   testTimeout: 20000,
-
-  globals: {
-    'ts-jest': {
-      tsconfig: 'src/tsconfig.json',
-    },
-  },
 };
