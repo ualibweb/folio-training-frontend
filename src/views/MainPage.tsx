@@ -1,22 +1,23 @@
 import React from 'react';
 import SidePanel from './SidePanel';
-import { Pane, Paneset, PaneHeader, Headline, MultiColumnList, Button } from '@folio/stripes/components';
+import { Pane, Paneset, Headline, MultiColumnList, Button } from '@folio/stripes/components';
 import { useState } from 'react';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import Debug from '../components/Debug';
+import { useInstitutions } from '../hooks/useInstitutions';
 
 export default function MainPage() {
+  const getInsts = useInstitutions();
   const [showPanel, setShowPanel] = useState<boolean>(false);
 
   const togglePanel = () => {
     setShowPanel(!showPanel);
   }
 
-  const bookData = [
-    {"Title": "The Cat in the Hat", "Author": "Dr. Suess"},
-    {"Title": "The Great Gatsby", "Author": "F. Scott Fitzgerald"}
-  ]
-
   return (
     <div>
+      <ReactQueryDevtools initialIsOpen={false}/>;
+      <Debug label='useInstitutions' value={useInstitutions()}/>
       <Paneset>
         <Pane defaultWidth='fill'>
           <Headline size='large' margin='medium' tag='h3'>
@@ -25,7 +26,7 @@ export default function MainPage() {
               Open side panel
             </Button>
           </Headline>
-          <MultiColumnList contentData={bookData} />
+          <MultiColumnList contentData={getInsts.data ?? []} visibleColumns={['name', 'code']}/>
         </Pane>
         <SidePanel togglePanel={togglePanel} showPanel={showPanel}/>
       </Paneset>
