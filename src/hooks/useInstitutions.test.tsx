@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { renderHook, act } from '@testing-library/react-hooks';
 import { useInstitutions } from './useInstitutions';
+import { renderHook } from '@folio/jest-config-stripes/testing-library/react-hooks';
 
 const kyMock = jest.fn(() => ({
   json: () => {
