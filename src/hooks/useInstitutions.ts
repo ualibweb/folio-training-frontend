@@ -22,6 +22,6 @@ export const useInstitutions = () => {
 
   return useQuery<Institution[]>(
     ["ui-training", "institutions"],
-    async () => ((await ky("location-units/institutions").json<InstitutionsResponse>())).locinsts,
+    async () => ((await ky.get("location-units/institutions").json<InstitutionsResponse>())).locinsts,
   );
 };
