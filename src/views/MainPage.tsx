@@ -26,7 +26,7 @@ export default function MainPage() {
               Open side panel
             </Button>
           </Headline>
-          <MultiColumnList contentData={getInsts.data ?? []} visibleColumns={['name', 'code']}/>
+          <MultiColumnList contentData={getInsts?.data ?? []} visibleColumns={['name', 'code']}/>
         </Pane>
         <SidePanel togglePanel={togglePanel} showPanel={showPanel}/>
       </Paneset>
