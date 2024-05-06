@@ -1,4 +1,5 @@
 const { join } = require('path');
+const config = require('@folio/jest-config-stripes');
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
@@ -6,7 +7,8 @@ module.exports = {
 
   preset: 'ts-jest',
   transform: {
-    '^.+\\.(t|j)sx?$': 'ts-jest'
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+    ...config.transform,
   },
   transformIgnorePatterns: ['node_modules/(?!@folio|ky)'],
 
