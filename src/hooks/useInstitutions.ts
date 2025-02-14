@@ -19,29 +19,7 @@ const ky = useOkapiKy();
     };
   }
 
-const kyMock = jest.fn(() => ({
-    json: () => {
-      return Promise.resolve({
-        locinsts: [
-          {
-            id: "inst1-id",
-            name: "institution 1",
-          },
-          {
-            id: "inst2-id",
-            name: "institution 2",
-          },
-        ],
-        totalRecords: 2,
-      });
-    },
-  }));
-  jest.mock("@folio/stripes/core", () => ({
-    ...jest.requireActual("@folio/stripes/core"),
-    useOkapiKy: () => ({
-      get: kyMock,
-    }),
-  }));
+  
 
 export const useInstitutions = () => {
   

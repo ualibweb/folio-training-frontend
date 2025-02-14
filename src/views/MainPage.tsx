@@ -6,17 +6,11 @@ import Debug from '../components/Debug';
 import { useInstitutions } from '../hooks/useInstitutions';
 
 
+
 export default function MainPage() {
   
   
   const getInstitutions = useInstitutions();
-  const cars = [
-    { name: "Model S", manufacturer: "Tesla", year: 2023, type: "Electric" },
-    { name: "Mustang", manufacturer: "Ford", year: 2022, type: "Sports" },
-    { name: "Civic", manufacturer: "Honda", year: 2021, type: "Sedan" },
-    { name: "Camry", manufacturer: "Toyota", year: 2023, type: "Sedan" },
-    { name: "911", manufacturer: "Porsche", year: 2024, type: "Sports" }
-  ];
   
   const [showPanel, setShowPanel] = useState<boolean>(false);
 

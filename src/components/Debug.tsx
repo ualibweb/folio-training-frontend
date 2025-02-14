@@ -3,7 +3,6 @@ import React, { ReactNode, useMemo } from 'react';
 import { FormSpy } from 'react-final-form';
 
 export interface DebugProps {
-  /** just a string is fine, making this a formatted message or something similar is a bit overkill */
   label: ReactNode;
   defaultOpen?: boolean;
   value: unknown;
