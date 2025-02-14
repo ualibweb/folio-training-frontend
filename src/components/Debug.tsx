@@ -3,7 +3,6 @@ import React, { ReactNode, useMemo } from 'react';
 import { FormSpy } from 'react-final-form';
 
 export interface DebugProps {
-  /** just a string is fine, making this a formatted message or something similar is a bit overkill */
   label: ReactNode;
   defaultOpen?: boolean;
   value: unknown;
@@ -18,29 +17,29 @@ export interface DebugProps {
  * @example
  * <Debug label="Current state" value={myState} defaultOpen />
  */
-export default function Debug({
-  label,
-  defaultOpen = false,
-  value,
-}: DebugProps) {
-  const contents = useMemo(() => {
-    if (value === undefined) {
-      return 'undefined';
-    }
-    return JSON.stringify(value, undefined, 2);
-  }, [value]);
+  export default function Debug({
+    label,
+    defaultOpen = false,
+    value,
+  }: DebugProps) {
+    const contents = useMemo(() => {
+      if (value === undefined) {
+        return 'undefined';
+      }
+      return JSON.stringify(value, undefined, 2);
+    }, [value]);
 
-  return (
-    <AccordionSet>
-      <Accordion
-        label={<span>Debug ({label})</span>}
-        closedByDefault={!defaultOpen}
-      >
-        <pre>{contents}</pre>
-      </Accordion>
-    </AccordionSet>
-  );
-}
+    return (
+      <AccordionSet>
+        <Accordion
+          label={<span>Debug ({label})</span>}
+          closedByDefault={!defaultOpen}
+        >
+          <pre>{contents}</pre>
+        </Accordion>
+      </AccordionSet>
+    );
+  }
 
 /**
  * A component to debug a form's current values.  Closed by default, but this
