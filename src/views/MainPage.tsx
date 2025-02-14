@@ -1,9 +1,15 @@
 import React from 'react';
 import { Headline, MultiColumnList, Pane, PaneHeader, Paneset, Button, Icon } from '@folio/stripes/components';
 import { useState } from 'react';
+import { ReactQueryDevtools } from "react-query/devtools";
+import Debug from '../components/Debug';
+import { useInstitutions } from '../hooks/useInstitutions';
+
 
 export default function MainPage() {
   
+  
+  const getInstitutions = useInstitutions();
   const cars = [
     { name: "Model S", manufacturer: "Tesla", year: 2023, type: "Electric" },
     { name: "Mustang", manufacturer: "Ford", year: 2022, type: "Sports" },
@@ -22,7 +28,11 @@ export default function MainPage() {
     setShowPanel(false);
   }
 
+
   return (
+    <div>
+    <ReactQueryDevtools initialIsOpen={false} />;
+    <Debug label="useInstitutions" value={useInstitutions()} />;
     <Paneset>
       <Pane
         defaultWidth="20%"
@@ -45,7 +55,7 @@ export default function MainPage() {
        
         </Headline>
       
-      <MultiColumnList contentData={cars}/>
+        <MultiColumnList contentData={getInstitutions.data ?? []} visibleColumns={['name', 'code']}/>
       </Pane>
       
        {showPanel && 
@@ -63,5 +73,7 @@ export default function MainPage() {
         </Pane>
       }
     </Paneset>
+    </div>
+    
   );
 }
