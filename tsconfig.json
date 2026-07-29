@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "allowJs": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
@@ -8,6 +9,7 @@
     "module": "es2020",
     "moduleResolution": "node",
     "strict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types":["jest","node"]
   }
 }
