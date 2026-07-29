@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { AppIcon } from '@folio/stripes/core';
 import { Paneset, Pane, Headline, MultiColumnList} from '@folio/stripes/components';
 import { Button } from '@folio/stripes/components';
-const contentData = [
-  { name: 'Sushim', role: 'Assistant' },
-  { name: 'J Cole', role: 'Rapper' },
-];
-
+import {ReactQueryDevtools} from "react-query/devtools";
+import { useInstitutions } from '../hooks/useInstitutions';
+import Debug from '../components/Debug';
 const MainPage = () => {
   const [showSecondPane, setShowSecondPane] = useState(false);
+  const { data, isLoading, isError, error } = useInstitutions();
+
+if (isError) {
+  console.log('Query error:', error);
+  return <div>Error: {String(error)}</div>;
+}
+if (isLoading || !data){
+  return <div >Loading..</div>;
+}
 
   return (
     <Paneset>
@@ -22,8 +29,8 @@ const MainPage = () => {
           Hyalo
         </Headline>
         <MultiColumnList
-          contentData={contentData}
-          visibleColumns={['name', 'role']}
+          contentData={data}
+          visibleColumns={['name', 'id']}
         />
       </Pane>
       {showSecondPane && (
