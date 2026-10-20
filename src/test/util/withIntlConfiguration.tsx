@@ -1,3 +1,5 @@
+// these translation files come with @folio/stripes, so they aren't listed separately in package.json
+/* eslint-disable import/no-extraneous-dependencies */
 import stripesComponentsTranslations from '@folio/stripes-components/translations/stripes-components/en';
 import stripesCoreTranslations from '@folio/stripes-core/translations/stripes-core/en';
 import React, { ReactNode } from 'react';
