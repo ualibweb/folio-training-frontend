@@ -23,7 +23,7 @@ jobs:
       FOLIO_NPM_REGISTRY: 'https://repository.folio.org/repository/npm-folioci/'
       FOLIO_NPM_REGISTRY_AUTH: '//repository.folio.org/repository/npm-folioci/'
       FOLIO_MD_REGISTRY: 'https://folio-registry.dev.folio.org'
-      NODEJS_VERSION: '16'
+      NODEJS_VERSION: '22'
       JEST_JUNIT_OUTPUT_DIR: 'artifacts/jest-junit'
       JEST_COVERAGE_REPORT_DIR: 'artifacts/coverage-jest/lcov-report/'
       BIGTEST_JUNIT_OUTPUT_DIR: 'artifacts/runTest'
@@ -33,14 +33,14 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: folio-org/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup kernel for react native, increase watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODEJS_VERSION }}
           check-latest: true
@@ -82,17 +82,17 @@ jobs:
         run: cat module-descriptor.json
 
       - name: Publish Jest unit test results
-        uses: docker://ghcr.io/enricomi/publish-unit-test-result-action:v1
+        uses: docker://ghcr.io/enricomi/publish-unit-test-result-action:v2
         if: always()
         with:
           github_token: ${{ github.token }}
           files: '${{ env.JEST_JUNIT_OUTPUT_DIR }}/*.xml'
           check_name: Jest Unit Test Results
-          comment_mode: update last
+          comment_mode: always
           comment_title: Jest Unit Test Statistics
 
       - name: Publish Jest coverage report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: jest-coverage-report
@@ -100,7 +100,7 @@ jobs:
           retention-days: 30
 
       - name: Publish yarn.lock
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: yarn.lock

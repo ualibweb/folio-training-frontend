@@ -6,16 +6,15 @@ This software is distributed under the terms of the Apache License, Version 2.0.
 
 ## Run the app
 
-Run the following from the ui-training directory to serve your new app using a development server:
-
-Note: Since this module does not have its own backend permissions established, pass the `--hasAllPerms` option to display the app in the UI navigation. For example:
-
-```
-yarn stripes serve --hasAllPerms
-```
-
-To specify your own tenant ID or to use an Okapi instance other than `http://localhost:9130` pass the `--okapi` and `--tenant` options:
+Set up a Stripes workspace first, following the
+[frontend training setup](https://github.com/ualibweb/ua-folio-docs/blob/main/training/frontend/00-prereqs-and-setup.md).
+Then, from inside this module's folder, run:
 
 ```
-yarn stripes serve --hasAllPerms --okapi https://folio-snapshot-okapi.dev.folio.org --tenant diku
+yarn stripes serve --okapi https://folio-etesting-snapshot-kong.ci.folio.org --tenant diku --hasAllPerms
 ```
+
+Open http://localhost:3000 and log in as `diku_admin` / `admin`. The `--okapi` flag points at the
+Eureka snapshot's Kong gateway; the old Okapi snapshot environments were retired on
+October 1, 2026. `--hasAllPerms` is needed because this module doesn't define its own backend
+permissions.

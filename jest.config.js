@@ -1,6 +1,10 @@
 const { join } = require('path');
 const config = require('@folio/jest-config-stripes');
 
+// Stripes 10's stripes-components uses keyboardjs, which ships ES module syntax that Jest
+// can't run as-is. This adds it to the list of node_modules packages Jest transforms.
+const transformKeyboardjs = (pattern) => pattern.replace('(?!', '(?!keyboardjs|');
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   ...config,
@@ -28,6 +32,8 @@ module.exports = {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
     ...config.transform,
   },
+
+  transformIgnorePatterns: config.transformIgnorePatterns.map(transformKeyboardjs),
 
   moduleNameMapper: {
     '^.+\\.(css|svg)$': 'identity-obj-proxy',
